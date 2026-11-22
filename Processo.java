@@ -17,7 +17,7 @@ public class Processo {
     public Processo(String[] args, boolean ehMestre) throws IOException {
         if (args.length < 3 || args.length > 6) {
             throw new IllegalArgumentException(
-                    "Informe: ID OPERACAO VOLTAS [PORTA_LOCAL IP_PROXIMO PORTA_PROXIMA]");
+                    "Informe ID, operacao e voltas.");
         }
 
         idProcesso = Integer.parseInt(args[0]);

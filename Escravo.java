@@ -10,38 +10,36 @@ public class Escravo {
             processo = new Processo(args, false);
 
             System.out.println("Escravo " + processo.idProcesso +
-                    " iniciado na porta " + processo.portaLocal);
-            System.out.println("Aguardando o token...");
+                    " na porta " + processo.portaLocal);
+            System.out.println("Esperando o token...");
 
             for (int voltaAtual = 1; voltaAtual <= processo.numeroDeVoltas; voltaAtual++) {
                 int token = processo.receberToken();
 
                 processo.mudarTempoDeEspera(15000);
 
-                System.out.println("Volta " + voltaAtual + ": Escravo " +
-                        processo.idProcesso + " recebeu " + token + ".");
+                System.out.println("\nVolta " + voltaAtual);
+                System.out.println("Recebi: " + token);
 
                 token = processo.calcularToken(token);
-                System.out.println("Escravo " + processo.idProcesso +
-                        " atualizou o token para " + token + ".");
+                System.out.println("Novo token: " + token);
 
                 processo.enviarToken(token);
-                System.out.println("Escravo " + processo.idProcesso +
-                        " enviou " + token + " ao proximo processo.");
+                System.out.println("Enviei: " + token);
             }
 
-            System.out.println("Escravo " + processo.idProcesso + " terminou suas voltas.");
+            System.out.println("\nFim do Escravo " + processo.idProcesso + ".");
 
         } catch (SocketTimeoutException erro) {
-            System.out.println("Tempo esgotado: Escravo nao recebeu o token.");
+            System.out.println("O token demorou demais para chegar.");
         } catch (SocketException erro) {
-            System.out.println("Erro na porta UDP: " + erro.getMessage());
+            System.out.println("Nao consegui usar a porta: " + erro.getMessage());
         } catch (IOException erro) {
-            System.out.println("Erro de comunicacao: " + erro.getMessage());
+            System.out.println("Falha na comunicacao: " + erro.getMessage());
         } catch (NumberFormatException erro) {
-            System.out.println("Erro: ID, operacao, voltas, porta ou token nao e numero valido.");
+            System.out.println("Algum numero informado nao e valido.");
         } catch (IllegalArgumentException erro) {
-            System.out.println("Parametros invalidos: " + erro.getMessage());
+            System.out.println("Confira os parametros: " + erro.getMessage());
         } finally {
             if (processo != null) {
                 processo.fechar();
